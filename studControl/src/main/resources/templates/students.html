@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+</head>
+<body>
+<h1>Students</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Full Name</th>
+        <th>Faculty</th>
+        <th>Direction</th>
+        <th>Year</th>
+        <th>Group</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.fullName}"></td>
+        <td th:text="${student.faculty.name}"></td>
+        <td th:text="${student.direction.name}"></td>
+        <td th:text="${student.year}"></td>
+        <td th:text="${student.group}"></td>
+    </tr>
+    </tbody>
+</table>
+<form method="post" th:action="@{/students}" th:object="${studentDTO}">
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" required>
+    <!— Добавь остальные поля, например, для факультета, направления, курса и группы —>
+    <button type="submit">Add Student</button>
+</form>
+</body>
+</html>

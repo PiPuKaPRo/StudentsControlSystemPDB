@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculties</title>
+</head>
+<body>
+<h1>Faculties</h1>
+<ul>
+    <li th:each="faculty : ${faculties}">
+        <a th:href="@{/faculties/{id}/directions(id=${faculty.id})}" th:text="${faculty.name}"></a>
+    </li>
+</ul>
+<form method="post" action="/faculties">
+    <label for="name">Faculty Name:</label>
+    <input type="text" id="name" name="name" required>
+    <button type="submit">Add Faculty</button>
+</form>
+</body>
+</html>
