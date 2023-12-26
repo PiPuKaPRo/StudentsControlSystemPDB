@@ -1,7 +1,6 @@
 package edu.vsu.cs.sakovea.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,17 +9,17 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "faculty")
-public class Faculty {
+@Table(name = "departments")
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
+    private Faculty faculty_id;
 
-    @OneToMany(mappedBy = "faculty_id")
-    private List<Department> departments;
-
-    @OneToMany(mappedBy = "faculty_id")
+    @OneToMany(mappedBy = "department_id")
     private List<Profile> profiles;
 }

@@ -1,52 +1,53 @@
 package edu.vsu.cs.sakovea.controller;
 
+
 import edu.vsu.cs.sakovea.dto.FacultyDTO;
+import edu.vsu.cs.sakovea.dto.ProfileDTO;
 import edu.vsu.cs.sakovea.model.Faculty;
-import edu.vsu.cs.sakovea.model.Student;
-import edu.vsu.cs.sakovea.dto.StudentDTO;
+import edu.vsu.cs.sakovea.model.Profile;
 import edu.vsu.cs.sakovea.service.ProfileService;
-import edu.vsu.cs.sakovea.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.firewall.RequestRejectedException;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/students")
-public class StudentController {
+@RequestMapping("/profiles")
+public class ProfileController {
     @Autowired
-    private StudentService studentService;
+    private ProfileService profileService;
+
     @PostMapping
-    public void addStudent(@Valid @RequestBody StudentDTO studentDTO) {
-        validateInput(studentDTO.getName());
-        studentService.addStudent(studentDTO);
+    public void addProfile(@Valid @RequestBody ProfileDTO profileDTO) {
+        validateInput(profileDTO.getName());
+        profileService.addProfile(profileDTO);
     }
 
     @SneakyThrows
-    @GetMapping("/students")
-    public Student getStudentById(@PathVariable Long id) {
-        return studentService.getStudentById(id);
+    @GetMapping("/profiles")
+    public Profile getProfileById(@PathVariable Long id) {
+        return profileService.getProfileById(id);
     }
 
     @SneakyThrows
-    @PutMapping("/updateStudent")
-    public void updateStudent(@PathVariable Long id, @Valid @RequestBody StudentDTO studentDTO) {
-        validateInput(studentDTO.getName());
-        studentService.updateStudent(id, studentDTO);
+    @PutMapping("/updateProfile")
+    public void updateProfile(@PathVariable Long id, @Valid @RequestBody ProfileDTO profileDTO) {
+        validateInput(profileDTO.getName());
+        profileService.updateProfile(id, profileDTO);
     }
 
-    @DeleteMapping("/students")
-    public void deleteStudent(@PathVariable Long id) {
-        studentService.deleteStudent(id);
+    @DeleteMapping("/profiles")
+    public void deleteProfile(@PathVariable Long id) {
+        profileService.deleteProfile(id);
     }
 
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudent();
+    public List<Profile> getAllProfiles() {
+        return profileService.getAllProfile();
     }
 
     private void validateInput(String input) {

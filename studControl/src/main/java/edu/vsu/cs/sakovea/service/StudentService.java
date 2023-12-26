@@ -1,39 +1,62 @@
 package edu.vsu.cs.sakovea.service;
 
-import edu.vsu.cs.sakovea.model.Direction;
+import edu.vsu.cs.sakovea.dto.ProfileDTO;
+import edu.vsu.cs.sakovea.model.Profile;
 import edu.vsu.cs.sakovea.model.Faculty;
 import edu.vsu.cs.sakovea.model.Student;
-import edu.vsu.cs.sakovea.model.dto.StudentDTO;
+import edu.vsu.cs.sakovea.dto.StudentDTO;
+import edu.vsu.cs.sakovea.repository.ProfileRepository;
 import edu.vsu.cs.sakovea.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
 
-    private final StudentRepository studentRepository;
-
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
-
-    public List<Student> getStudentsByDirection(Long directionId) {
-        return studentRepository.findByDirectionId(directionId);
-    }
+    @Autowired
+    private StudentRepository studentRepository;
 
     public void addStudent(StudentDTO studentDTO) {
         Student student = new Student();
-        student.setFullName(studentDTO.getFullName());
-// Устанавливаем связи с факультетом и направлением
-        Faculty faculty = new Faculty();
-        faculty.setId(studentDTO.getFacultyId());
-        student.setFaculty(faculty);
-
-        Direction direction = new Direction();
-        direction.setId(studentDTO.getDirectionId());
-        student.setDirection(direction);
-
-// Устанавливаем остальные свойства студента
+        student.setName(studentDTO.getName());
+        student.setSurname(studentDTO.getSurname());
+        student.setStudentid_num(studentDTO.getStudentid_num());
+        student.setCourse(studentDTO.getCourse());
+        student.setGroup_num(studentDTO.getGroup());
+        student.setProfile_id(studentDTO.getProfile_id());
         studentRepository.save(student);
     }
+
+    public Student getStudentById(Long id) throws ChangeSetPersister.NotFoundException {
+        return studentRepository.findById(id)
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+    }
+
+    public void updateStudent(Long id, StudentDTO studentDTO) throws ChangeSetPersister.NotFoundException {
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if (optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            student.setName(studentDTO.getName());
+            student.setSurname(studentDTO.getSurname());
+            student.setStudentid_num(studentDTO.getStudentid_num());
+            student.setCourse(studentDTO.getCourse());
+            student.setGroup_num(studentDTO.getGroup());
+            student.setProfile_id(studentDTO.getProfile_id());
+            studentRepository.save(student);
+        } else {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+    }
+
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
+    }
+
+    public List<Student> getAllStudent() {
+        return studentRepository.findAll();
+    }
+
 }
