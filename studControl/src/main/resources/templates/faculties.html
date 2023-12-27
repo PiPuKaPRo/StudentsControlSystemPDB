@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Факультеты</title>
+</head>
+<body>
+<h1>Список факультетов</h1>
+
+<ul>
+    <!— Список факультетов в виде ссылок —>
+    <li><a href="/departments?facultyId=1">Факультет 1</a></li>
+    <li><a href="/departments?facultyId=2">Факультет 2</a></li>
+    <!— Добавьте остальные факультеты в том же формате —>
+</ul>
+
+<!— Форма для удаления факультета —>
+<form action="/deleteFaculty" method="post">
+    <label for="facultyToDelete">Название факультета для удаления:</label>
+    <input type="text" id="facultyToDelete" name="facultyToDelete" required>
+    <button type="submit">Удалить факультет</button>
+</form>
+
+<!— Ссылка на страницу добавления факультета —>
+<a href="/addFaculty">Добавить новый факультет</a>
+
+</body>
+</html>

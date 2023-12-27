@@ -1,0 +1,12 @@
+INSERT INTO Departments VALUES (1, 'Department 1', 1);
+INSERT INTO Departments VALUES (2, 'Department 2', 1);
+INSERT INTO Departments VALUES (3, 'Department 3', 1);
+INSERT INTO Departments VALUES (4, 'Department 4', 1);
+INSERT INTO Departments VALUES (5, 'Department 1', 2);
+INSERT INTO Departments VALUES (6, 'Department 2', 2);
+INSERT INTO Departments VALUES (7, 'Department 3', 2);
+INSERT INTO Departments VALUES (8, 'Department 4', 2);
+INSERT INTO Departments VALUES (9, 'Department 1', 3);
+INSERT INTO Departments VALUES (10, 'Department 2', 3);
+INSERT INTO Departments VALUES (11, 'Department 3', 3);
+INSERT INTO Departments VALUES (12, 'Department 4', 3);
