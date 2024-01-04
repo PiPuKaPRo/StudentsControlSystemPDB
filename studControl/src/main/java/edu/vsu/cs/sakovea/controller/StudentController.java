@@ -56,12 +56,16 @@ public class StudentController {
         studentService.updateStudent(id, studentDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id) {
-        studentService.deleteStudent(id);
+
+    @SneakyThrows
+    @GetMapping("/students")
+    public String deleteStudent(@PathVariable("id") Long id, Model model) {
+        Student student = studentService.getStudentById(id);
+        studentService.deleteStudent(student.getId());
+        return "redirect:/students";
     }
 
-    @GetMapping("/students")
+    @GetMapping
     public String getAllStudents(Model model) {
         model.addAttribute("students", studentService.getAllStudent());
         return "/students";

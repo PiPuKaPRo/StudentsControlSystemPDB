@@ -10,7 +10,7 @@
 
 <form th:method="POST" th:action="@{/faculties}" th:object="${faculty}">
     <label for="name">Enter name: </label>
-    <input type="text" th:field="${faculty.setName()}" id="name"/>
+    <input type="text" th:field="*{name}" id="name"/>
     <br/>
     <input type="submit" value="Create!"/>
 </form>

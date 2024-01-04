@@ -23,14 +23,14 @@ public class FacultyController {
 
     @GetMapping("/addFaculty")
     public String newFaculty(@ModelAttribute("faculty") Faculty faculty){
-        return "addFaculty";
+        return "/addFaculty";
     }
 
     @PostMapping
     public String addFaculty(@ModelAttribute("faculty") @Valid @RequestBody FacultyDTO facultyDTO,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "addFaculty";
+            return "/addFaculty";
         validateInput(facultyDTO.getName());
         facultyService.addFaculty(facultyDTO);
         return "redirect:/faculties";
@@ -42,12 +42,6 @@ public class FacultyController {
         return facultyService.getFacultyById(id);
     }
 
-    @SneakyThrows
-    @PutMapping("/{id}/updateFaculty")
-    public void updateFaculty(@PathVariable Long id, @Valid @RequestBody FacultyDTO facultyDTO) {
-        validateInput(facultyDTO.getName());
-        facultyService.updateFaculty(id, facultyDTO);
-    }
 
     @DeleteMapping("/{id}")
     public void deleteFaculty(@PathVariable Long id) {

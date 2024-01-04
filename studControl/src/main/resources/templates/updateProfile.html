@@ -8,19 +8,14 @@
 <body>
 <h1>Обновление направления</h1>
 
-<form action="/updateDirection" method="post">
-    <label for="name">Название направления:</label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="faculty">Факультет:</label>
-    <input type="text" id="faculty" name="faculty" required>
-
-    <label for="department">Кафедра:</label>
-    <input type="text" id="department" name="department" required>
-
-    <!— Дополнительные поля, если необходимо —>
-
-    <button type="submit">Обновить</button>
+<form th:method="POST" th:action="@{/{id}/students/updateProfile(id=${profile.getId()})}" th:object="${profile}">
+    <label for="profname">Enter ProfileName: </label>
+    <input type="text" th:field="*{profile}" id="profname"/>
+    <br/>
+    <label for="depname">Enter DepartmentName: </label>
+    <input type="text" th:field="*{}" id="depname"/>
+    <br/>
+    <input type="submit" value="Update!"/>
 </form>
 </body>
 </html>

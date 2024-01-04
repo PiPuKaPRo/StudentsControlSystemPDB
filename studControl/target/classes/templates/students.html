@@ -19,7 +19,6 @@
                 <th>Курс</th>
                 <th>Группа</th>
                 <th>Направление</th>
-                <th>Edit</th>
                 <th>Delete</th>
             </tr>
             </thead>
@@ -30,14 +29,14 @@
                 <td th:text="${student.getStudentid_num()}"></td>
                 <td th:text="${student.getCourse()}"></td>
                 <td th:text="${student.getGroup_num()}"></td>
-                <td th:text="${student.getProfile()}"></td>
-                <td><a th:href="@{/edit/{id}(id=${student.getId()})}">Edit</a></td>
+                <td th:text="${student.getProfile().getName()}"></td>
                 <td><a th:href="@{/delete/{id}(id=${student.getId()})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<a href="/addStudent">Добавить нового студента</a>
+<a href="/signup">Добавить нового студента</a>
+<a th:href="@{/profiles/{id}/students/updateProfile(id=${profile.getId()})}">Обновить направление</a>
 </body>
 </html>

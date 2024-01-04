@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
     <a th:href="@{/faculties/{id}/profiles(id=${faculty.getId()})}"
        th:text="${faculty.getName()}">faculty</a>
 </div>
-<a href="/addFaculty">Добавить новый факультет</a>
+<a href="/faculties/addFaculty">Добавить новый факультет</a>
+<br/>
+<a href="/faculties/addProfile">Добавить новое направление</a>
 </body>
 </html>

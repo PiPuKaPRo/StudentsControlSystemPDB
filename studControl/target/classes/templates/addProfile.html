@@ -8,19 +8,17 @@
 <body>
 <h1>Добавление направления</h1>
 
-<form action="/saveDirection" method="post">
-    <label for="name">Название направления:</label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="faculty">Факультет:</label>
-    <input type="text" id="faculty" name="faculty" required>
-
-    <label for="department">Кафедра:</label>
-    <input type="text" id="department" name="department" required>
-
-    <!— Дополнительные поля, если необходимо —>
-
-    <button type="submit">Сохранить</button>
+<form th:method="POST" th:action="@{/faculties}" th:object="${profile}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="depname">Enter department id: </label>
+    <input type="text" th:field="*{department.id}" id="depname"/>
+    <br/>
+    <label for="facname">Enter faculty id: </label>
+    <input type="text" th:field="*{faculty.id}" id="facname"/>
+    <br/>
+    <input type="submit" value="Create!"/>
 </form>
 </body>
 </html>
