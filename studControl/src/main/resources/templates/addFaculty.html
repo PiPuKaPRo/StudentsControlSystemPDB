@@ -8,13 +8,11 @@
 <body>
 <h1>Добавление факультета</h1>
 
-<form action="/saveFaculty" method="post">
-    <label for="name">Название факультета:</label>
-    <input type="text" id="name" name="name" required>
-
-    <!— Дополнительные поля, если необходимо —>
-
-    <button type="submit">Сохранить</button>
+<form th:method="POST" th:action="@{/faculties}" th:object="${faculty}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="${faculty.setName()}" id="name"/>
+    <br/>
+    <input type="submit" value="Create!"/>
 </form>
 </body>
 </html>

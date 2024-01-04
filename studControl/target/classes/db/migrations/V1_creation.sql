@@ -36,10 +36,3 @@ create table students
 
     foreign key (profile_id) references profile (id)
 );
-
-create table profile_student(
-                                profile_id serial references profile (id),
-                                student_id serial references profile (id),
-
-                                PRIMARY KEY (profile_id, student_id)
-);

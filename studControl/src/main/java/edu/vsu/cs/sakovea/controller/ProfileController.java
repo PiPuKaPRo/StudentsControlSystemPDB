@@ -10,12 +10,14 @@ import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.firewall.RequestRejectedException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping("/profiles")
 public class ProfileController {
     @Autowired
@@ -28,26 +30,27 @@ public class ProfileController {
     }
 
     @SneakyThrows
-    @GetMapping("/profiles")
+    @GetMapping("/{id}")
     public Profile getProfileById(@PathVariable Long id) {
         return profileService.getProfileById(id);
     }
 
     @SneakyThrows
-    @PutMapping("/updateProfile")
+    @PutMapping("/{id}/updateProfile")
     public void updateProfile(@PathVariable Long id, @Valid @RequestBody ProfileDTO profileDTO) {
         validateInput(profileDTO.getName());
         profileService.updateProfile(id, profileDTO);
     }
 
-    @DeleteMapping("/profiles")
+    @DeleteMapping("/{id}")
     public void deleteProfile(@PathVariable Long id) {
         profileService.deleteProfile(id);
     }
 
     @GetMapping
-    public List<Profile> getAllProfiles() {
-        return profileService.getAllProfile();
+    public String getAllProfiles(Model model) {
+        model.addAttribute("profiles",profileService.getAllProfile());
+        return "/profiles";
     }
 
     private void validateInput(String input) {

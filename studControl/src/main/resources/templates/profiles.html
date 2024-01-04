@@ -8,24 +8,20 @@
 <body>
 <h1>Список направлений</h1>
 
-<ul>
-    <!— Список направлений в виде ссылок —>
-    <li><a href="/students?profileId=1">Направление 1</a></li>
-    <li><a href="/students?profileId=2">Направление 2</a></li>
-    <!— Добавьте остальные направления в том же формате —>
-</ul>
+<div th:each="profile : ${profiles}">
+    <a th:href="@{/profiles/{id}/students(id=${profile.getId()})}"
+       th:text="${profile.getName()}">profile</a>
+</div>
 
-<!— Форма для удаления направления —>
+
 <form action="/deleteProfile" method="post">
     <label for="directionToDelete">Название направления для удаления:</label>
     <input type="text" id="directionToDelete" name="directionToDelete" required>
     <button type="submit">Удалить направление</button>
 </form>
 
-<!— Ссылка на страницу добавления направления —>
 <a href="/addProfile">Добавить новое направление</a>
 
-<!— Ссылка на страницу добавления направления —>
 <a href="/updateProfile">Обновить направление</a>
 
 </body>

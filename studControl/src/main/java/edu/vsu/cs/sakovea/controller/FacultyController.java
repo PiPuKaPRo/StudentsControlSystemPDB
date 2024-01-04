@@ -7,44 +7,63 @@ import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.firewall.RequestRejectedException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping("/faculties")
 public class FacultyController {
     @Autowired
     private FacultyService facultyService;
 
+    @GetMapping("/addFaculty")
+    public String newFaculty(@ModelAttribute("faculty") Faculty faculty){
+        return "addFaculty";
+    }
+
     @PostMapping
-    public void addFaculty(@Valid @RequestBody FacultyDTO facultyDTO) {
+    public String addFaculty(@ModelAttribute("faculty") @Valid @RequestBody FacultyDTO facultyDTO,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "addFaculty";
         validateInput(facultyDTO.getName());
         facultyService.addFaculty(facultyDTO);
+        return "redirect:/faculties";
     }
 
 @SneakyThrows
-@GetMapping("/faculties")
+@GetMapping("/{id}")
     public Faculty getFacultyById(@PathVariable Long id) {
         return facultyService.getFacultyById(id);
     }
 
     @SneakyThrows
-    @PutMapping("/faculties")
+    @PutMapping("/{id}/updateFaculty")
     public void updateFaculty(@PathVariable Long id, @Valid @RequestBody FacultyDTO facultyDTO) {
         validateInput(facultyDTO.getName());
         facultyService.updateFaculty(id, facultyDTO);
     }
 
-    @DeleteMapping("/faculties")
+    @DeleteMapping("/{id}")
     public void deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
     }
 
     @GetMapping
-    public List<Faculty> getAllFaculties() {
-        return facultyService.getAllFaculties();
+    public String getAllFaculties(Model model) {
+        model.addAttribute("faculties",facultyService.getAllFaculties());
+        return "/faculties";
+    }
+    @SneakyThrows
+    @GetMapping("/{id}/profiles")
+    public String getFacultyProfiles(@PathVariable Long id, Model model){
+        model.addAttribute("profiles", facultyService.getFacultyById(id).getProfiles());
+        return "/profiles";
     }
 
     private void validateInput(String input) {

@@ -7,23 +7,10 @@
 </head>
 <body>
 <h1>Список факультетов</h1>
-
-<ul>
-    <!— Список факультетов в виде ссылок —>
-    <li><a href="/departments?facultyId=1">Факультет 1</a></li>
-    <li><a href="/departments?facultyId=2">Факультет 2</a></li>
-    <!— Добавьте остальные факультеты в том же формате —>
-</ul>
-
-<!— Форма для удаления факультета —>
-<form action="/deleteFaculty" method="post">
-    <label for="facultyToDelete">Название факультета для удаления:</label>
-    <input type="text" id="facultyToDelete" name="facultyToDelete" required>
-    <button type="submit">Удалить факультет</button>
-</form>
-
-<!— Ссылка на страницу добавления факультета —>
+<div th:each="faculty : ${faculties}">
+    <a th:href="@{/faculties/{id}/profiles(id=${faculty.getId()})}"
+       th:text="${faculty.getName()}">faculty</a>
+</div>
 <a href="/addFaculty">Добавить новый факультет</a>
-
 </body>
 </html>

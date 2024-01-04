@@ -7,32 +7,37 @@
 </head>
 <body>
 <h1>Список студентов</h1>
-
-<table>
-    <thead>
-    <tr>
-        <th>Имя</th>
-        <th>Факультет</th>
-        <th>Направление</th>
-        <th>Курс</th>
-        <th>Группа</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!— Заполните таблицу данными студентов —>
-    <tr>
-        <td>Иванов Иван Иванович</td>
-        <td>Факультет 1</td>
-        <td>Направление 1</td>
-        <td>2</td>
-        <td>Группа A</td>
-    </tr>
-    <!— Добавьте остальных студентов в том же формате —>
-    </tbody>
-</table>
-
-<!— Ссылка на страницу добавления студента —>
-<a href="/addStudent">Добавить нового студента</a>
-
+<div th:switch="${students}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+        <table>
+            <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Номер студенческого</th>
+                <th>Курс</th>
+                <th>Группа</th>
+                <th>Направление</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.getName()}"></td>
+                <td th:text="${student.getSurname()}"></td>
+                <td th:text="${student.getStudentid_num()}"></td>
+                <td th:text="${student.getCourse()}"></td>
+                <td th:text="${student.getGroup_num()}"></td>
+                <td th:text="${student.getProfile()}"></td>
+                <td><a th:href="@{/edit/{id}(id=${student.getId()})}">Edit</a></td>
+                <td><a th:href="@{/delete/{id}(id=${student.getId()})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<a href="/signup">Добавить нового студента</a>
 </body>
 </html>

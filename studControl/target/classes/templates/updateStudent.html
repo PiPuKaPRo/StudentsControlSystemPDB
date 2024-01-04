@@ -8,25 +8,17 @@
 <body>
 <h1>Обновление студента</h1>
 
-<form action="/updateStudent" method="post">
-  <label for="name">Имя студента:</label>
-  <input type="text" id="name" name="name" required>
-
-  <label for="faculty">Факультет:</label>
-  <input type="text" id="faculty" name="faculty" required>
-
-  <label for="direction">Направление:</label>
-  <input type="text" id="direction" name="direction" required>
-
-  <label for="course">Курс:</label>
-  <input type="number" id="course" name="course" required>
-
-  <label for="group">Группа:</label>
-  <input type="text" id="group" name="group" required>
-
-  <!— Дополнительные поля, если необходимо —>
-
-  <button type="submit">Обновить</button>
+<form action="#"
+      th:action="@{/update/{id}(id=${student.id})}"
+      th:object="${student}"
+      method="post">
+  <label for="name">Name</label>
+  <input type="text" th:field="*{name}" id="name" placeholder="Name">
+  <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+  <label for="email">Email</label>
+  <input type="text" th:field="*{email}" id="email" placeholder="Email">
+  <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+  <input type="submit" value="Update User">
 </form>
 </body>
 </html>
