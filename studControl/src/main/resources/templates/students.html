@@ -7,6 +7,14 @@
 </head>
 <body>
 <h1>Список студентов</h1>
+<a href="/students/add">Добавить нового студента</a>
+<br/>
+<!--<label for="id">Введите id студента, которого хотите обновить: </label>-->
+<!--<input type="text" th:field="*{id}" id="id"/>-->
+<!--<br/>-->
+<!--<form th:action="@{/students/update}">-->
+<!--    <input type="submit" value="Обновить этого студента" />-->
+<!--</form>-->
 <div th:switch="${students}">
     <h2 th:case="null">No users yet!</h2>
     <div th:case="*">
@@ -20,6 +28,7 @@
                 <th>Группа</th>
                 <th>Направление</th>
                 <th>Delete</th>
+                <th>Update</th>
             </tr>
             </thead>
             <tbody>
@@ -30,13 +39,13 @@
                 <td th:text="${student.getCourse()}"></td>
                 <td th:text="${student.getGroup_num()}"></td>
                 <td th:text="${student.getProfile().getName()}"></td>
-                <td><a th:href="@{/delete/{id}(id=${student.getId()})}">Delete</a></td>
+                <td><a th:href="@{|/students/delete/${student.getId()}|}">Delete</a></td>
+                <td><a th:href="@{/students/update/{id}/updateStudent(id=${student.getId()})}">Update</a></td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<a href="/signup">Добавить нового студента</a>
-<a th:href="@{/profiles/{id}/students/updateProfile(id=${profile.getId()})}">Обновить направление</a>
+
 </body>
 </html>

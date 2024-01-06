@@ -1,9 +1,12 @@
 package edu.vsu.cs.sakovea.service;
 
 import edu.vsu.cs.sakovea.dto.FacultyDTO;
+import edu.vsu.cs.sakovea.model.Department;
 import edu.vsu.cs.sakovea.model.Profile;
 import edu.vsu.cs.sakovea.model.Faculty;
 import edu.vsu.cs.sakovea.dto.ProfileDTO;
+import edu.vsu.cs.sakovea.repository.DepartmentRepository;
+import edu.vsu.cs.sakovea.repository.FacultyRepository;
 import edu.vsu.cs.sakovea.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -16,13 +19,21 @@ public class ProfileService {
 
     @Autowired
     private ProfileRepository profileRepository;
-
+    @Autowired
+    private DepartmentRepository departmentRepository;
+    @Autowired
+    private FacultyRepository facultyRepository;
 
     public void addProfile(ProfileDTO profileDTO) {
         Profile profile = new Profile();
         profile.setName(profileDTO.getName());
-        profile.setDepartment(profileDTO.getDepartment());
-        profile.setFaculty(profileDTO.getFaculty());
+
+        Optional<Department> department = departmentRepository.findById((long) profileDTO.getDepartmentId());
+        department.ifPresent(profile::setDepartment);
+
+        Optional<Faculty> faculty = facultyRepository.findById((long) profileDTO.getFacultyId());
+        faculty.ifPresent(profile::setFaculty);
+
         profileRepository.save(profile);
     }
 

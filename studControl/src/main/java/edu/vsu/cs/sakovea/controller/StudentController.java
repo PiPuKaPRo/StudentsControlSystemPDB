@@ -17,28 +17,15 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
     @Autowired
     private StudentService studentService;
-    @PostMapping
-    public void addStudent(@Valid @RequestBody StudentDTO studentDTO) {
-        validateInput(studentDTO.getName());
-        studentService.addStudent(studentDTO);
+
+    @GetMapping("/add")
+    public String add(Model model) {
+        model.addAttribute("studentDTO", new StudentDTO());
+        return "newStudent";
     }
 
-    @GetMapping("/signup")
-    public String showSignUpForm(StudentDTO studentDTO) {
-        return "addStudent";
-    }
-
-    @PostMapping("/addStudent")
-    public String addUser(@Valid @RequestBody StudentDTO studentDTO, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "addStudent";
-        }
-        validateInput(studentDTO.getName());
-        validateInput(studentDTO.getSurname());
-        validateInput(String.valueOf(studentDTO.getStudentid_num()));
-        validateInput(String.valueOf(studentDTO.getCourse()));
-        validateInput(String.valueOf(studentDTO.getGroup()));
-        validateInput(String.valueOf(studentDTO.getProfile()));
+    @PostMapping("/add")
+    public String add(@ModelAttribute StudentDTO studentDTO, Model model) {
         studentService.addStudent(studentDTO);
         return "redirect:/students";
     }
@@ -49,20 +36,27 @@ public class StudentController {
         return studentService.getStudentById(id);
     }
 
+
+    @GetMapping("/update/{id}")
+    public String update(Model model) {
+        model.addAttribute("studentDTO", new StudentDTO());
+        return "updateStudent";
+    }
+
     @SneakyThrows
-    @PutMapping("/{id}/updateStudent")
-    public void updateStudent(@PathVariable Long id, @Valid @RequestBody StudentDTO studentDTO) {
-        validateInput(studentDTO.getName());
-        studentService.updateStudent(id, studentDTO);
+    @GetMapping("/update/{id}/updateStudent")
+    public String update(@PathVariable Long id ,@ModelAttribute StudentDTO studentDTO, Model model) {
+        studentService.updateStudent(id,studentDTO);
+        return "redirect:/profiles/" + studentDTO.getProfileId() + "/students";
     }
 
 
     @SneakyThrows
-    @GetMapping("/students")
-    public String deleteStudent(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/delete/{id}")
+    public String deleteStudent(@PathVariable(value = "id") Long id, Model model) {
         Student student = studentService.getStudentById(id);
         studentService.deleteStudent(student.getId());
-        return "redirect:/students";
+        return "redirect:/profiles/" + student.getProfile().getId() + "/students";
     }
 
     @GetMapping

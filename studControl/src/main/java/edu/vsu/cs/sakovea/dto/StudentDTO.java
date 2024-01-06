@@ -8,7 +8,7 @@ public class StudentDTO {
     private String name;
     private String surname;
     private int studentid_num;
-    private Profile profile;
+    private int profileId;
     private int course;
     private int group;
 }

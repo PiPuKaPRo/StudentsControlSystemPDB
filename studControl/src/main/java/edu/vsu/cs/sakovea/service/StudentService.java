@@ -18,6 +18,8 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private ProfileRepository profileRepository;
 
     public void addStudent(StudentDTO studentDTO) {
         Student student = new Student();
@@ -26,7 +28,10 @@ public class StudentService {
         student.setStudentid_num(studentDTO.getStudentid_num());
         student.setCourse(studentDTO.getCourse());
         student.setGroup_num(studentDTO.getGroup());
-        student.setProfile(studentDTO.getProfile());
+
+        Optional<Profile> profile = profileRepository.findById((long) studentDTO.getProfileId());
+        student.setProfile(profile.get());
+
         studentRepository.save(student);
     }
 
@@ -44,11 +49,15 @@ public class StudentService {
             student.setStudentid_num(studentDTO.getStudentid_num());
             student.setCourse(studentDTO.getCourse());
             student.setGroup_num(studentDTO.getGroup());
-            student.setProfile(studentDTO.getProfile());
+
+            Optional<Profile> profile = profileRepository.findById((long) studentDTO.getProfileId());
+            student.setProfile(profile.get());
+
             studentRepository.save(student);
-        } else {
+        }else {
             throw new ChangeSetPersister.NotFoundException();
         }
+
     }
 
     public void deleteStudent(Long id) {

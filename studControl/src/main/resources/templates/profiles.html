@@ -12,14 +12,7 @@
     <a th:href="@{/profiles/{id}/students(id=${profile.getId()})}"
        th:text="${profile.getName()}">profile</a>
 </div>
-
-
-<form action="/deleteProfile" method="post">
-    <label for="directionToDelete">Название направления для удаления:</label>
-    <input type="text" id="directionToDelete" name="directionToDelete" required>
-    <button type="submit">Удалить направление</button>
-</form>
 <br/>
-<a href="/profiles/addProfile">Добавить новое направление</a>
+<a href="/profiles/add">Добавить новое направление</a>
 </body>
 </html>

@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class ProfileDTO {
     private String name;
-    private Faculty faculty;
-    private Department department;
+    private int facultyId;
+    private int departmentId;
 }

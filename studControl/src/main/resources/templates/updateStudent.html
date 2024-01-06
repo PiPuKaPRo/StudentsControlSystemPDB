@@ -1,33 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Обновление студента</title>
+  <title>New Student</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Обновление студента</h1>
-
-<form action="#" th:action="@{/addStudent}" th:object="${student}" method="post">
-  <label for="name">Name</label>
-  <input type="text" th:field="*{name}" id="name" placeholder="Name">
-  <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-  <label for="surname">Surname</label>
-  <input type="text" th:field="*{surname}" id="surname" placeholder="Surname">
-  <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
-  <label for="studentid_num">Studentid_num</label>
-  <input type="text" th:field="*{studentid_num}" id="studentid_num" placeholder="Studentid_num">
-  <span th:if="${#fields.hasErrors('studentid_num')}" th:errors="*{studentid_num}"></span>
-  <label for="course">Course</label>
-  <input type="text" th:field="*{course}" id="course" placeholder="course">
-  <span th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></span>
-  <label for="group_num">Group_num</label>
-  <input type="text" th:field="*{group_num}" id="group_num" placeholder="group_num">
-  <span th:if="${#fields.hasErrors('group_num')}" th:errors="*{group_num}"></span>
-  <label for="profile">Profile</label>
-  <input type="text" th:field="*{profile}" id="profile" placeholder="profile">
-  <span th:if="${#fields.hasErrors('profile')}" th:errors="*{profile}"></span>
-  <input type="submit" value="Add Student">
+<h1>Добавить студента</h1>
+<form action="#" th:action="@{students/update/{id}(id=${student.getId()})}" th:object="${studentDTO}" method="post">
+  <p>Name: <input type="text" th:field="*{name}" /></p>
+  <p>Surname: <input type="text" th:field="*{surname}" /></p>
+  <p>StudentId_num: <input type="number" th:field="*{studentid_num}" /></p>
+  <p>profile: <input type="number" th:field="*{profileId}" /></p>
+  <p>course: <input type="number" th:field="*{course}" /></p>
+  <p>group: <input type="number" th:field="*{group}" /></p>
+  <p><input type="submit" value="Подтвердить" />
 </form>
 </body>
 </html>
