@@ -7,15 +7,5 @@
 </head>
 <body>
 <h1>Обновление направления</h1>
-
-<form th:method="POST" th:action="@{/{id}/students/updateProfile(id=${profile.getId()})}" th:object="${profile}">
-    <label for="profname">Enter ProfileName: </label>
-    <input type="text" th:field="*{profile}" id="profname"/>
-    <br/>
-    <label for="depname">Enter DepartmentName: </label>
-    <input type="text" th:field="*{}" id="depname"/>
-    <br/>
-    <input type="submit" value="Update!"/>
-</form>
 </body>
 </html>

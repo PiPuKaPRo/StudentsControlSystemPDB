@@ -24,7 +24,7 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping("/faculties/addProfile")
+    @GetMapping("/addProfile")
     public String newProfile(@ModelAttribute("profile") Profile profile){
         return "/addProfile";
     }
@@ -38,7 +38,7 @@ public class ProfileController {
         validateInput(String.valueOf(profileDTO.getDepartment().getId()));
         validateInput(String.valueOf(profileDTO.getFaculty().getId()));
         profileService.addProfile(profileDTO);
-        return "redirect:/faculties";
+        return "redirect:/profiles";
     }
 
     @SneakyThrows
@@ -56,13 +56,13 @@ public class ProfileController {
         return "/updateProfile";
     }
 
-    @SneakyThrows
-    @GetMapping("/{id}/students/updateProfile")
-    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        Profile profile = profileService.getProfileById(id);
-        model.addAttribute("profile", profile);
-        return "/{id}/students/updateProfile";
-    }
+//    @SneakyThrows
+//    @GetMapping("/{id}/students/updateProfile")
+//    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+//        Profile profile = profileService.getProfileById(id);
+//        model.addAttribute("profile", profile);
+//        return "/{id}/students/updateProfile";
+//    }
 
     @DeleteMapping("/{id}")
     public void deleteProfile(@PathVariable Long id) {

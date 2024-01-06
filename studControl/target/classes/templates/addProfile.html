@@ -8,7 +8,7 @@
 <body>
 <h1>Добавление направления</h1>
 
-<form th:method="POST" th:action="@{/faculties}" th:object="${profile}">
+<form th:method="POST" th:action="@{/profiles}" th:object="${profile}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br/>
