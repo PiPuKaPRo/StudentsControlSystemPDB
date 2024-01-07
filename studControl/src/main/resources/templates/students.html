@@ -40,7 +40,7 @@
                 <td th:text="${student.getGroup_num()}"></td>
                 <td th:text="${student.getProfile().getName()}"></td>
                 <td><a th:href="@{|/students/delete/${student.getId()}|}">Delete</a></td>
-                <td><a th:href="@{/students/update/{id}/updateStudent(id=${student.getId()})}">Update</a></td>
+                <td><a th:href="@{/students/update/{id}(id=${student.getId()})}">Update</a></td>
             </tr>
             </tbody>
         </table>

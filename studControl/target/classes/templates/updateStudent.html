@@ -5,15 +5,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Добавить студента</h1>
-<form action="#" th:action="@{students/update/{id}(id=${student.getId()})}" th:object="${studentDTO}" method="post">
+<h1>Обновить студента</h1>
+<form action="#"
+      th:action="@{/students/update/{id}(id=${student.getId()})}"
+      th:object="${student}" method="post">
+
+  <p>StudentId_num: <input type="number" th:field="*{studentid_num}" /></p>
+
   <p>Name: <input type="text" th:field="*{name}" /></p>
   <p>Surname: <input type="text" th:field="*{surname}" /></p>
-  <p>StudentId_num: <input type="number" th:field="*{studentid_num}" /></p>
   <p>profile: <input type="number" th:field="*{profileId}" /></p>
   <p>course: <input type="number" th:field="*{course}" /></p>
   <p>group: <input type="number" th:field="*{group}" /></p>
-  <p><input type="submit" value="Подтвердить" />
+
+  <p><input type="submit" value="Update" /></p>
 </form>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package edu.vsu.cs.sakovea.controller;
 
+import edu.vsu.cs.sakovea.dto.StudentWithIdDTO;
 import edu.vsu.cs.sakovea.model.Student;
 import edu.vsu.cs.sakovea.dto.StudentDTO;
+import edu.vsu.cs.sakovea.repository.StudentRepository;
 import edu.vsu.cs.sakovea.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.SneakyThrows;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @GetMapping("/add")
     public String add(Model model) {
@@ -37,17 +42,45 @@ public class StudentController {
     }
 
 
+//    @SneakyThrows
+//    @GetMapping("/update/{id}")
+//    public String update(@PathVariable("id") Long id , Model model) {
+//        Student student = studentService.getStudentById(id);
+//        model.addAttribute("student", student);
+//        return "/updateStudent";
+//    }
+//
+//    @SneakyThrows
+//    @PostMapping ("/update/{id}")
+//    public String update(@ModelAttribute Student student) {
+//        studentRepository.save(student);
+//        return "redirect:/profiles/" + student.getProfile().getId() + "/students";
+//    }
+
+    @SneakyThrows
     @GetMapping("/update/{id}")
-    public String update(Model model) {
-        model.addAttribute("studentDTO", new StudentDTO());
+    public String updateForm(Model model, @PathVariable("id") Long id) {
+        Student student = studentService.getStudentById(id);
+        StudentWithIdDTO studentWithIdDTO = StudentWithIdDTO.builder()
+                .id(student.getId())
+                .name(student.getName())
+                .surname(student.getSurname())
+                .group(student.getGroup_num())
+                .studentid_num(student.getStudentid_num())
+                .course(student.getCourse())
+                .profileId(student.getProfile().getId())
+                .build();
+
+        model.addAttribute("student", studentWithIdDTO);
         return "updateStudent";
     }
 
     @SneakyThrows
-    @GetMapping("/update/{id}/updateStudent")
-    public String update(@PathVariable Long id ,@ModelAttribute StudentDTO studentDTO, Model model) {
-        studentService.updateStudent(id,studentDTO);
-        return "redirect:/profiles/" + studentDTO.getProfileId() + "/students";
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") Long id, @Valid StudentDTO studentDTO,
+                             BindingResult result, Model model) {
+        studentService.updateStudent(id, studentDTO);
+        return "redirect:/students";
     }
 
 
